@@ -13,6 +13,6 @@ public class ConfigStoreActor extends AbstractActor {
         return ReceiveBuilder.create().match(SetServerListMessage.class, msg -> {
             //TODO: подкрутить логгер
             this.serverList = msg.getServerList();
-        }).build(); //TODO: создать классы сообщений
+        }).match().build(); //TODO: создать классы сообщений
     }
 }
