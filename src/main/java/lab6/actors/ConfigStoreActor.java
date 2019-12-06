@@ -5,6 +5,8 @@ import akka.japi.pf.ReceiveBuilder;
 import lab6.messages.GetRandomServerMessage;
 import lab6.messages.SetServerListMessage;
 
+import java.util.Random;
+
 public class ConfigStoreActor extends AbstractActor {
 
     private String[] serverList;
@@ -15,7 +17,11 @@ public class ConfigStoreActor extends AbstractActor {
             //TODO: подкрутить логгер
             this.serverList = msg.getServerList();
         }).match(GetRandomServerMessage.class, msg -> {
-            
+            sender().tell(getRandomServer(), self());
         }).build(); //TODO: создать классы сообщений
+    }
+
+    private String getRandomServer() {
+        return serverList[new Random().nextInt(serverList.length)];
     }
 }
