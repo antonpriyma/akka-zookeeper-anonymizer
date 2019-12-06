@@ -6,8 +6,13 @@ import lab6.messages.SetServerListMessage;
 
 public class ConfigStoreActor extends AbstractActor {
 
+    private String[] serverList;
+
     @Override
     public Receive createReceive() {
-        return ReceiveBuilder.create().match(SetServerListMessage.class,); //TODO: создать классы сообщений
+        return ReceiveBuilder.create().match(SetServerListMessage.class, msg -> {
+            //TODO: подкрутить логгер
+            this.serverList = msg.getServerList();
+        }).build(); //TODO: создать классы сообщений
     }
 }
