@@ -1,10 +1,12 @@
 package lab6.actors;
 
 import akka.actor.AbstractActor;
+import akka.japi.pf.ReceiveBuilder;
 
 public class ConfigStoreActor extends AbstractActor {
+
     @Override
     public Receive createReceive() {
-        return null;
+        return ReceiveBuilder.create().match(); //TODO: создать классы сообщений
     }
 }
