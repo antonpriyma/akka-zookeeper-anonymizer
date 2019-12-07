@@ -6,6 +6,8 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
+import lab6.messages.GetRandomServerMessage;
 
 import java.util.concurrent.CompletionStage;
 
@@ -13,6 +15,7 @@ public class Server extends AllDirectives {
 
     private static final String URL_PARAM_NAME = "url";
     private static final String COUNT_PARAM_NAME = "count";
+    private static final int TIMEOUT = 
 
     private Http http;
     private ActorRef configStoreActor;
@@ -38,6 +41,6 @@ public class Server extends AllDirectives {
     }
 
     private CompletionStage<HttpResponse> redirect() {
-        
+        return Patterns.ask(configStoreActor, new GetRandomServerMessage(), )
     }
 }
