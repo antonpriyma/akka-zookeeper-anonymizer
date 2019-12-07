@@ -1,7 +1,6 @@
 package lab6.app;
 
 import akka.actor.ActorRef;
-import lab6.actors.ConfigStoreActor;
 import lab6.messages.SetServerListMessage;
 import org.apache.zookeeper.*;
 
@@ -22,6 +21,7 @@ public class ZookeeperService {
     public ZookeeperService(ActorRef configStoreActor) throws IOException {
         this.zooKeeper = createZooKeeper();
         this.configStoreActor = configStoreActor;
+        watchServers();
     }
 
     private ZooKeeper createZooKeeper() throws IOException {
@@ -38,19 +38,23 @@ public class ZookeeperService {
     }
 
     private void watchServers() {
-        List<String> serverNodeNames = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
-            if (watchedEvent.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
-                watchServers();
+        try {
+            List<String> serverNodeNames = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
+                if (watchedEvent.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+                    watchServers();
+                }
+            });
+
+            List<String> servers = new ArrayList<>();
+
+            for (String serverNodeName : serverNodeNames) {
+                byte[] serverUrl = zooKeeper.getData(ROOT_PATH + "/" + serverNodeName, null, null);
+                servers.add(new String(serverUrl));
             }
-        });
 
-        List<String> servers = new ArrayList<>();
-
-        for (String serverNodeName : serverNodeNames) {
-            byte[] serverUrl = zooKeeper.getData(ROOT_PATH + "/" + serverNodeName, null, null);
-            servers.add(new String(serverUrl));
+            configStoreActor.tell(new SetServerListMessage(servers.toArray(new String[0])), ActorRef.noSender());
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
         }
-
-        configStoreActor.tell(new SetServerListMessage(servers.toArray(new String[0])), ActorRef.noSender());
     }
 }
