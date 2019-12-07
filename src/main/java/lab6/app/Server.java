@@ -11,6 +11,7 @@ import akka.http.javadsl.server.Route;
 import akka.japi.Pair;
 import akka.pattern.Patterns;
 import lab6.messages.GetRandomServerMessage;
+import org.apache.zookeeper.KeeperException;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -25,14 +26,14 @@ public class Server extends AllDirectives {
     private Http http;
     private ActorRef configStoreActor;
 
-    public Server(final Http http, ActorRef configStoreActor) throws IOException {
+    public Server(final Http http, ActorRef configStoreActor, int port) throws IOException, KeeperException, InterruptedException {
         this.http = http;
         this.configStoreActor = configStoreActor;
-        new ZookeeperService(configStoreActor).createServer();
+        new ZookeeperService(configStoreActor).createServer(getServerUrl(port));
     }
 
     private String getServerUrl(int port) {
-        return ""
+        return "http://localhost:" + port;
     }
 
     public Route createRoute() {
