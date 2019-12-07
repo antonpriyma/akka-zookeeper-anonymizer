@@ -37,5 +37,7 @@ public class Server extends AllDirectives {
         return http.singleRequest(HttpRequest.create(url));
     }
 
-    private CompletionStage<HttpResponse> 
+    private CompletionStage<HttpResponse> redirect() {
+        
+    }
 }
