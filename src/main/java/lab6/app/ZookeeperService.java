@@ -22,7 +22,7 @@ public class ZookeeperService {
         return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT, null);
     }
 
-    private void createServer() {
+    private void createServer(String server) {
 
     }
 
