@@ -2,6 +2,8 @@ package lab6.app;
 
 import org.apache.zookeeper.ZooKeeper;
 
+import java.io.IOException;
+
 public class ZookeeperService {
 
     private static final String ZOOKEEPER_CONNECT_STRING = "127.0.0.1:2181";
@@ -9,11 +11,15 @@ public class ZookeeperService {
 
     private ZooKeeper zooKeeper;
 
-    public ZookeeperService() {
-
+    public ZookeeperService() throws IOException {
+        this.zooKeeper = createZooKeeper();
     }
 
-    private ZooKeeper createZooKeeper() {
+    private ZooKeeper createZooKeeper() throws IOException {
         return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT, null);
+    }
+
+    private void watchServers() {
+        List<>
     }
 }
