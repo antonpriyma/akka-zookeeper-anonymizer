@@ -35,7 +35,10 @@ public class Launcher {
 
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost(//TODO: add cl args)
-                );
+                ConnectHttp.toHost(HOST_NAME, serverPort),
+                materializer
+        );
+
+        
     }
 }
