@@ -52,6 +52,7 @@ public class ZookeeperService {
                 servers.add(new String(serverUrl));
             }
 
+            System.out.println("set config");
             configStoreActor.tell(new SetServerListMessage(servers.toArray(new String[0])), ActorRef.noSender());
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();

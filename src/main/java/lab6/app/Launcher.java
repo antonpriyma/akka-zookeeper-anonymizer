@@ -41,6 +41,7 @@ public class Launcher {
                 materializer
         );
 
+        System.out.println("Server started on port: " + serverPort);
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
