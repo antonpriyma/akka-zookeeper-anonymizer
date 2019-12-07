@@ -14,11 +14,10 @@ public class ConfigStoreActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create().match(SetServerListMessage.class, msg -> {
-            //TODO: подкрутить логгер
             this.serverList = msg.getServerList();
         }).match(GetRandomServerMessage.class, msg -> {
             sender().tell(getRandomServer(), self());
-        }).build(); //TODO: создать классы сообщений
+        }).build();
     }
 
     private String getRandomServer() {

@@ -26,10 +26,15 @@ public class Server extends AllDirectives {
     private Http http;
     private ActorRef configStoreActor;
 
-    public Server(final Http http, ActorRef configStoreActor, int port) throws IOException, KeeperException, InterruptedException {
+    public Server(final Http http, int port, ActorRef configStoreActor) throws InterruptedException, IOException, KeeperException {
         this.http = http;
         this.configStoreActor = configStoreActor;
-        new ZookeeperService(configStoreActor).createServer(getServerUrl(port));
+        initZooKeeper(port);
+    }
+
+    private void initZooKeeper(int port) throws IOException, KeeperException, InterruptedException {
+        ZookeeperService zookeeperService = new ZookeeperService(configStoreActor);
+        zookeeperService.createServer(getServerUrl(port));
     }
 
     private String getServerUrl(int port) {

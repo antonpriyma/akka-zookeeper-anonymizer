@@ -12,6 +12,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import lab6.actors.ConfigStoreActor;
+import org.apache.zookeeper.KeeperException;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
@@ -21,7 +22,7 @@ public class Launcher {
     private static final String ACTOR_SYSTEM_NAME = "anonymizer-system";
     private static final String HOST_NAME = "localhost";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         int serverPort = Integer.parseInt(args[0]);
 
         ActorSystem system = ActorSystem.create(ACTOR_SYSTEM_NAME);
@@ -29,7 +30,7 @@ public class Launcher {
 
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        Server server = new Server(http, configStoreActor);
+        Server server = new Server(http, serverPort, configStoreActor);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow =
                 server.createRoute().flow(system, materializer);
