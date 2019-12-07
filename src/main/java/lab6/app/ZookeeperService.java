@@ -33,7 +33,7 @@ public class ZookeeperService {
                 NODES_PATH,
                 serverUrl.getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                CreateMode.EPHEMERAL
+                CreateMode.EPHEMERAL_SEQUENTIAL
         );
     }
 
