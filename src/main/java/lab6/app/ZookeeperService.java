@@ -3,6 +3,7 @@ package lab6.app;
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ZookeeperService {
@@ -32,11 +33,18 @@ public class ZookeeperService {
     }
 
     private void watchServers() {
-        List<String> serverNodes = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
+        List<String> serverNodeNames = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
             if (watchedEvent.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
                 watchServers();
             }
         });
+
+        List<String> servers = new ArrayList<>();
+
+        for (String serverNodeName : serverNodeNames) {
+            byte[] serverUrl = zooKeeper.getData(ROOT_PATH + "/" + serverNodeName, null, null);
+            servers.add(new String(serverUrl));
+        }
 
         
     }
