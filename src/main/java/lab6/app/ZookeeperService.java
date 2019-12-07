@@ -1,5 +1,8 @@
 package lab6.app;
 
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
@@ -22,13 +25,16 @@ public class ZookeeperService {
         return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT, null);
     }
 
-    private void createServer(String serverUrl) {
+    private void createServer(String serverUrl) throws KeeperException, InterruptedException {
         zooKeeper.create(
-                
+                NODES_PATH,
+                serverUrl.getBytes(),
+                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL
         );
     }
 
     private void watchServers() {
-        List<String> servers = zooKeeper.getChildren()
+        List<String> servers = zooKeeper.getChildren(ROOT_PATH, )
     }
 }
