@@ -1,9 +1,12 @@
 package lab6.app;
 
+import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.model.HttpRequest;
+import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import lab6.actors.ConfigStoreActor;
 
@@ -17,6 +20,8 @@ public class Launcher {
 
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        //TODO:create server
+        Server server = new Server(http, configStoreActor);
+
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow
     }
 }
