@@ -14,6 +14,7 @@ public class ConfigStoreActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create().match(SetServerListMessage.class, msg -> {
+            System.out.println("set config");
             this.serverList = msg.getServerList();
         }).match(GetRandomServerMessage.class, msg -> {
             sender().tell(getRandomServer(), self());
@@ -21,6 +22,9 @@ public class ConfigStoreActor extends AbstractActor {
     }
 
     private String getRandomServer() {
-        return serverList[new Random().nextInt(serverList.length)];
+        String serverUrl = serverList[new Random().nextInt(serverList.length)];
+        System.out.println("redirect to " + serverUrl);
+
+        return serverUrl;
     }
 }
