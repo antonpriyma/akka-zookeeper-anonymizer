@@ -8,6 +8,7 @@ import akka.http.javadsl.model.Query;
 import akka.http.javadsl.model.Uri;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
+import akka.japi.Pair;
 import akka.pattern.Patterns;
 import lab6.messages.GetRandomServerMessage;
 
@@ -31,8 +32,8 @@ public class Server extends AllDirectives {
     public Route createRoute() {
         return get(() ->
                 parameter(URL_PARAM_NAME, url ->
-                        parameter(COUNT_PARAM_NAME, count -> {
-                                    //TODO: add fetch
+                        parameter(COUNT_PARAM_NAME, countParam -> {
+                                    return Integer.parseInt(countParam) == 0?CompletionStage<HttpResponse>
                                 }
                         )
                 )
@@ -43,11 +44,17 @@ public class Server extends AllDirectives {
         return http.singleRequest(HttpRequest.create(url));
     }
 
-    private CompletionStage<HttpResponse> redirect() {
+    private CompletionStage<HttpResponse> redirect(String url, int count) {
         return Patterns.ask(configStoreActor, new GetRandomServerMessage(), TIMEOUT)
-                .thenCompose(serverUrl -> {
-                    Uri.create((String) serverUrl)
-                            .query(Query.create())
-                })
+                .thenCompose(serverUrl -> fetch(createRedirectUrl((String) serverUrl, url, count)));
+    }
+
+    private String createRedirectUrl(String serverUrl, String queryUrl, int count) {
+        return Uri.create(serverUrl)
+                .query(Query.create(
+                        Pair.create(URL_PARAM_NAME, queryUrl),
+                        Pair.create(COUNT_PARAM_NAME, Integer.toString(count - 1))
+                ))
+                .toString();
     }
 }
