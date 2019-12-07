@@ -28,7 +28,7 @@ public class ZookeeperService {
         return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT, null);
     }
 
-    private void createServer(String serverUrl) throws KeeperException, InterruptedException {
+    public void createServer(String serverUrl) throws KeeperException, InterruptedException {
         zooKeeper.create(
                 NODES_PATH,
                 serverUrl.getBytes(),

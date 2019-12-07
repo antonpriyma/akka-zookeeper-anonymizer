@@ -12,6 +12,7 @@ import akka.japi.Pair;
 import akka.pattern.Patterns;
 import lab6.messages.GetRandomServerMessage;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
@@ -24,10 +25,10 @@ public class Server extends AllDirectives {
     private Http http;
     private ActorRef configStoreActor;
 
-    public Server(final Http http, ActorRef configStoreActor) {
+    public Server(final Http http, ActorRef configStoreActor) throws IOException {
         this.http = http;
         this.configStoreActor = configStoreActor;
-        new ZookeeperService(configStoreActor)
+        new ZookeeperService(configStoreActor).createServer();
     }
 
     public Route createRoute() {
