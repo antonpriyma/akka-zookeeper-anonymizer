@@ -33,7 +33,11 @@ public class Server extends AllDirectives {
         return get(() ->
                 parameter(URL_PARAM_NAME, url ->
                         parameter(COUNT_PARAM_NAME, countParam -> {
-                                    return Integer.parseInt(countParam) == 0?CompletionStage<HttpResponse>
+                                    int count = Integer.parseInt(countParam);
+
+                                    return count == 0 ?
+                                            completeWithFuture(fetch(url)) :
+                                            completeWithFuture(redirect(url, count));
                                 }
                         )
                 )
