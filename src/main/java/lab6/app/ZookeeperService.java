@@ -1,5 +1,7 @@
 package lab6.app;
 
+import akka.actor.ActorRef;
+import lab6.actors.ConfigStoreActor;
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
@@ -14,9 +16,11 @@ public class ZookeeperService {
     private static final int SESSION_TIMEOUT = 3000;
 
     private ZooKeeper zooKeeper;
+    private ActorRef configStoreActor;
 
-    public ZookeeperService() throws IOException {
+    public ZookeeperService(ActorRef configStoreActor) throws IOException {
         this.zooKeeper = createZooKeeper();
+        this.configStoreActor = configStoreActor;
     }
 
     private ZooKeeper createZooKeeper() throws IOException {
@@ -46,6 +50,6 @@ public class ZookeeperService {
             servers.add(new String(serverUrl));
         }
 
-        
+        configStoreActor.tell();
     }
 }
