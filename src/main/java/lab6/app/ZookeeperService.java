@@ -2,6 +2,7 @@ package lab6.app;
 
 import akka.actor.ActorRef;
 import lab6.actors.ConfigStoreActor;
+import lab6.messages.SetServerListMessage;
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
@@ -50,6 +51,6 @@ public class ZookeeperService {
             servers.add(new String(serverUrl));
         }
 
-        configStoreActor.tell();
+        configStoreActor.tell(new SetServerListMessage(servers.toArray(new String[0])), ActorRef.noSender());
     }
 }
