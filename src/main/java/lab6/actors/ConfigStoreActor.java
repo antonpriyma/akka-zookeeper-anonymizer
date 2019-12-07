@@ -16,9 +16,9 @@ public class ConfigStoreActor extends AbstractActor {
         return ReceiveBuilder.create().match(SetServerListMessage.class, msg -> {
             System.out.println("set config");
             this.serverList = msg.getServerList();
-        }).match(GetRandomServerMessage.class, msg -> {
-            sender().tell(getRandomServer(), self());
-        }).build();
+        }).match(GetRandomServerMessage.class, msg ->
+                sender().tell(getRandomServer(), self())
+        ).build();
     }
 
     private String getRandomServer() {
