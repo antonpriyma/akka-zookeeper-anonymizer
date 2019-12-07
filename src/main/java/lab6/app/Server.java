@@ -1,5 +1,6 @@
 package lab6.app;
 
+import akka.actor.ActorRef;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
@@ -14,9 +15,11 @@ public class Server extends AllDirectives {
     private static final String COUNT_PARAM_NAME = "count";
 
     private Http http;
+    private ActorRef configStoreActor;
 
-    public Server(final Http http) {
+    public Server(final Http http, ActorRef configStoreActor) {
         this.http = http;
+        this.configStoreActor = configStoreActor;
     }
 
     public Route createRoute() {
