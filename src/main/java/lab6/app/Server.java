@@ -1,15 +1,22 @@
 package lab6.app;
 
+import akka.http.javadsl.Http;
+import akka.http.javadsl.model.HttpRequest;
+import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
+
+import java.util.concurrent.CompletionStage;
 
 public class Server extends AllDirectives {
 
     private static final String URL_PARAM_NAME = "url";
     private static final String COUNT_PARAM_NAME = "count";
 
-    public Server() {
-        //TODO: add constructor
+    private Http http;
+
+    public Server(final Http http) {
+        this.http = http;
     }
 
     public Route createRoute() {
@@ -23,5 +30,7 @@ public class Server extends AllDirectives {
         );
     }
 
-    private 
+    private CompletionStage<HttpResponse> fetch(String url) {
+        return http.singleRequest(HttpRequest.create(url));
+    }
 }
