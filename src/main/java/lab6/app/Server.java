@@ -31,6 +31,10 @@ public class Server extends AllDirectives {
         new ZookeeperService(configStoreActor).createServer();
     }
 
+    private String getServerUrl(int port) {
+        return ""
+    }
+
     public Route createRoute() {
         return get(() ->
                 parameter(URL_PARAM_NAME, url ->
