@@ -1,9 +1,6 @@
 package lab6.app;
 
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.ZooDefs;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +32,10 @@ public class ZookeeperService {
     }
 
     private void watchServers() {
-        List<String> servers = zooKeeper.getChildren(ROOT_PATH, )
+        List<String> servers = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
+            if (watchedEvent.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+
+            }
+        })
     }
 }
