@@ -27,6 +27,7 @@ public class Server extends AllDirectives {
     public Server(final Http http, ActorRef configStoreActor) {
         this.http = http;
         this.configStoreActor = configStoreActor;
+        new ZookeeperService(configStoreActor)
     }
 
     public Route createRoute() {
