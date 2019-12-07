@@ -13,6 +13,13 @@ public class Server extends AllDirectives {
     }
 
     public Route createRoute() {
-        return get(() -> parameter(URL_PARAM_NAME, url -> parameter(COUNT_PARAM_NAME)));
+        return get(() ->
+                parameter(URL_PARAM_NAME, url ->
+                        parameter(COUNT_PARAM_NAME, count -> {
+                                    //TODO: add fetch
+                                }
+                        )
+                )
+        );
     }
 }
