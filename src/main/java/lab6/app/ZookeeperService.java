@@ -22,7 +22,9 @@ public class ZookeeperService {
         return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT, null);
     }
 
-    private 
+    private void createServer() {
+
+    }
 
     private void watchServers() {
         List<String> servers = zooKeeper.getChildren()
