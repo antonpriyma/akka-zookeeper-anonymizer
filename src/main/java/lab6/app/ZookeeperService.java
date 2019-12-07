@@ -3,6 +3,7 @@ package lab6.app;
 import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ZookeeperService {
 
@@ -20,6 +21,6 @@ public class ZookeeperService {
     }
 
     private void watchServers() {
-        List<>
+        List<String> servers = zooKeeper.getChildren()
     }
 }
