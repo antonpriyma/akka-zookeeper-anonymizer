@@ -19,7 +19,10 @@ public class Launcher {
 
     private static final String ACTOR_SYSTEM_NAME = "anonymizer-system";
 
+
     public static void main(String[] args) {
+        int serverPort = Integer.parseInt(args[0]);
+
         ActorSystem system = ActorSystem.create(ACTOR_SYSTEM_NAME);
         ActorRef configStoreActor = system.actorOf(Props.create(ConfigStoreActor.class));
 
@@ -32,7 +35,7 @@ public class Launcher {
 
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost()
-        );
+                ConnectHttp.toHost(//TODO: add cl args)
+                );
     }
 }
