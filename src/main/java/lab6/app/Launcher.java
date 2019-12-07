@@ -18,7 +18,7 @@ import java.util.concurrent.CompletionStage;
 public class Launcher {
 
     private static final String ACTOR_SYSTEM_NAME = "anonymizer-system";
-
+    private static final String HOST_NAME = "localhost";
 
     public static void main(String[] args) {
         int serverPort = Integer.parseInt(args[0]);
