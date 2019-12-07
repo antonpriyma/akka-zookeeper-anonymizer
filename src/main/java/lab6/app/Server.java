@@ -10,6 +10,6 @@ public class Server extends AllDirectives {
     }
 
     public Route createRoute() {
-        return route();
+        return get();
     }
 }
