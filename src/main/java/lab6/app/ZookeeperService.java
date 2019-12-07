@@ -14,6 +14,6 @@ public class ZookeeperService {
     }
 
     private ZooKeeper createZooKeeper() {
-        return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT)
+        return new ZooKeeper(ZOOKEEPER_CONNECT_STRING, SESSION_TIMEOUT, null);
     }
 }
