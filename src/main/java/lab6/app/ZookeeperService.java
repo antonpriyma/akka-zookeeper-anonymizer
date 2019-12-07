@@ -32,12 +32,12 @@ public class ZookeeperService {
     }
 
     private void watchServers() {
-        List<String> servers = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
+        List<String> serverNodes = zooKeeper.getChildren(ROOT_PATH, watchedEvent -> {
             if (watchedEvent.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
                 watchServers();
             }
         });
 
-
+        
     }
 }
