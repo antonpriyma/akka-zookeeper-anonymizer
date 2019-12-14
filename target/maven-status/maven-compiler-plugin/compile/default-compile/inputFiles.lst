@@ -1,6 +1,6 @@
-/home/vladislav/Labs/lab6/akka-zookeeper-anonymizer/src/main/java/lab6/app/Server.java
-/home/vladislav/Labs/lab6/akka-zookeeper-anonymizer/src/main/java/lab6/actors/ConfigStoreActor.java
-/home/vladislav/Labs/lab6/akka-zookeeper-anonymizer/src/main/java/lab6/app/ZookeeperService.java
-/home/vladislav/Labs/lab6/akka-zookeeper-anonymizer/src/main/java/lab6/app/Launcher.java
-/home/vladislav/Labs/lab6/akka-zookeeper-anonymizer/src/main/java/lab6/messages/GetRandomServerMessage.java
-/home/vladislav/Labs/lab6/akka-zookeeper-anonymizer/src/main/java/lab6/messages/SetServerListMessage.java
+/Users/a.priyma/Programs/Java/akka-zookeeper-anonymizer/src/main/java/lab6/messages/GetRandomServerMessage.java
+/Users/a.priyma/Programs/Java/akka-zookeeper-anonymizer/src/main/java/lab6/messages/SetServerListMessage.java
+/Users/a.priyma/Programs/Java/akka-zookeeper-anonymizer/src/main/java/lab6/app/Server.java
+/Users/a.priyma/Programs/Java/akka-zookeeper-anonymizer/src/main/java/lab6/app/Launcher.java
+/Users/a.priyma/Programs/Java/akka-zookeeper-anonymizer/src/main/java/lab6/actors/ConfigStoreActor.java
+/Users/a.priyma/Programs/Java/akka-zookeeper-anonymizer/src/main/java/lab6/app/ZookeeperService.java
